@@ -62,7 +62,7 @@
 				var resultObj = new Object();
 				// 计算数字的重复个数
 				countSplit = countSplit || '.';
-				var reg = /[`~\!@#\$%\^&\*\(\)\-\+_=\\\;:'"<,.>\?\/|%·！￥……（）——【】、；：’“‘”，《》。？\r\n]/g;
+				var reg = /[`~\!@#\$%\^&\*\(\)\-\+_=\\\;:'"<,.>\?\/|%·！￥……（）——【】、；：’“‘”，《》。？\r\n\s]/g;
 				num = num.replace(reg, ',');
 				if(num.indexOf(numSplit) !== -1) {
 					var arr = num.split(numSplit);
