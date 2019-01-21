@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title></title>
+		<style>
+			label {
+				display: block;
+				margin-bottom: 10px;
+			}
+			
+			input {
+				width: 20px;
+				line-height: 20px;
+				padding: 5px;
+				border: 1px solid #ccc;
+			}
+			
+			textarea {
+				width: 95%;
+				height: 100px;
+				resize: unset;
+				margin: 10px auto;
+				padding: 5px;
+				border: 1px solid #ccc;
+			}
+			
+			button {
+				display: block;
+			}
+			
+			p {
+				width: 98%;
+				word-break: break-all;
+				line-height: 24px;
+			}
+		
+		</style>
+	</head>
+
+	<body>
+		<!--<label>
+			输入数字的分隔符：<input type="text" id="numSplit" value=",">
+		</label>-->
+		<label>
+			计算结果数字的分隔符：<input type="text" id="countSplit" value=".">
+		</label>
+		<label> 
+			输入数字：<textarea type="text" id="num"></textarea>
+		</label>
+		<button type="button" onclick="getCount()">计算结果</button>
+		<div id="result"></div>
+		<script>
+			function getCount() {
+				document.getElementById('result').innerHTML = '';
+				var num = document.getElementById('num').value;
+//				var numSplit = document.getElementById('numSplit').value;
+				var countSplit = document.getElementById('countSplit').value, numSplit=',';
+				var countObj = new Object();
+				var resultObj = new Object();
+				// 计算数字的重复个数
+				countSplit = countSplit || '.';
+				var reg = /[`~\!@#\$%\^&\*\(\)\-\+_=\\\;:'"<,.>\?\/|%·！￥……（）——【】、；：’“‘”，《》。？\r\n]/g;
+				num = num.replace(reg, ',');
+				if(num.indexOf(numSplit) !== -1) {
+					var arr = num.split(numSplit);
+					for(var i = 0; i < arr.length; i++) {
+						if(arr[i] !== '') {
+							countObj[arr[i]] = countObj[arr[i]] ? countObj[arr[i]] + 1 : 1;
+						}
+					}
+				}
+				// 计算重复个数相同的数字
+				// countObj对象
+				// 1 i :2 countObj[i],   
+				// 2:2,
+				// 3:1,
+				// 4:2,
+				// resultObj对象
+				// 2 countObj[i]:1/2/4 i,
+				// 1:3
+				for(i in countObj) {
+					resultObj[countObj[i]] = resultObj[countObj[i]] ? resultObj[countObj[i]] + countSplit + i : i;
+				}
+				var newkey = Object.keys(resultObj).reverse();
+				for(var i = 0; i < newkey.length; i++) {
+					var value = new Array();
+					value = resultObj[newkey[i]].split('.').sort();
+					document.getElementById('result').innerHTML += '<p>' + newkey[i] + '-' + value.join('.') +
+						'</p>';
+				}
+			}
+		</script>
+	</body>
+
+</html>
