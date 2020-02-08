@@ -29,10 +29,16 @@
 			
 			button {
 				display: block;
+				margin-bottom: 10px;
 			}
 			
 			p {
 				width: 98%;
+				word-break: break-all;
+				line-height: 24px;
+			}
+			
+			span{
 				word-break: break-all;
 				line-height: 24px;
 			}
@@ -85,11 +91,16 @@
 					resultObj[countObj[i]] = resultObj[countObj[i]] ? resultObj[countObj[i]] + countSplit + i : i;
 				}
 				var newkey = Object.keys(resultObj).reverse();
-				for(var i = 0; i < newkey.length; i++) {
+				for(var i = 0, len = newkey.length; i < len; i++) {
 					var value = new Array();
 					value = resultObj[newkey[i]].split('.').sort();
-					document.getElementById('result').innerHTML += '<p>' + newkey[i] + '-' + value.join('.') +
-						'</p>';
+					// document.getElementById('result').innerHTML += '<p>' + newkey[i] + '-' + value.join('.') +
+					// 	'</p>';
+					var sqot = '，'
+					if(i === len - 1){
+						sqot = '。'
+					}
+					document.getElementById('result').innerHTML += `<span>${newkey[i]}-${value.join('.')}</span>${sqot}`;
 				}
 			}
 		</script>
